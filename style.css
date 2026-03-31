@@ -2182,3 +2182,193 @@ body { font-family: 'Inter', sans-serif; background-color: #fff; color: #1d1d1f;
 .ex-card-premium {
     transition: all 0.3s ease;
 }
+
+.name-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.edit-btn {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 14px;
+}
+.user-id {
+    color: #007bff;
+    font-weight: 500;
+    margin: 2px 0 8px 0;
+    font-size: 0.9rem;
+}
+.profile-avatar {
+    cursor: pointer;
+    transition: 0.3s;
+}
+.profile-avatar:hover {
+    opacity: 0.8;
+}
+
+.profile-info-main {
+    display: flex;
+    flex-direction: column; /* Elementlarni ustma-ust qo'yish */
+    align-items: center;    /* Barchasini gorizontal markazga surish */
+    text-align: center;     /* Matnni ham markazga olish */
+    width: 100%;            /* To'liq kenglikni egallashi uchun */
+}
+
+.name-container {
+    display: flex;
+    align-items: center;    /* Ism va qalamchani bir chiziqda markazlash */
+    justify-content: center; /* Ularni o'rtaga surish */
+    gap: 8px;               /* Ism va qalamcha orasidagi masofa */
+    margin-left: 25px;      /* Qalamcha hisobiga ism aniq markazda turishi uchun biroz surish */
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Balans kartasiga alohida urg'u */
+.balance-card {
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.1), rgba(255, 255, 255, 0.7));
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+    color: #2ed573;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #777;
+    font-weight: 500;
+}
+
+.stat-value-container {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #2f3542;
+}
+
+.currency, .unit {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #a4b0be;
+}
+
+/* Tugma dizayni */
+.add-funds-btn {
+    background: #2ed573;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(46, 213, 115, 0.3);
+}
+
+.stat-link {
+    color: #1e90ff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    text-decoration: none; /* Link chizig'ini olib tashlash */
+    color: #2f3542;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateX(5px); /* O'ngga biroz surilish effekti */
+}
+
+.menu-item:active {
+    transform: scale(0.98); /* Bosilganda biroz kichrayish (Click effekti) */
+}
+
+.menu-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.menu-icon {
+    width: 40px;
+    height: 40px;
+    background: #f1f2f6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e90ff;
+    font-size: 1.2rem;
+}
+
+/* Mahsulotlar soni uchun badge */
+.menu-badge {
+    background: #ff4757;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.arrow {
+    color: #ced6e0;
+    font-size: 0.9rem;
+}
+

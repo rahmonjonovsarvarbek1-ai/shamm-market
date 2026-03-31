@@ -429,36 +429,57 @@
 <section id="profile" class="main-page" style="display: none;">
     <div class="container profile-container">
         <div class="profile-header-card">
-            <div class="profile-avatar">
-                <img src="https://ui-avatars.com/api/?name=Sarvarbek&background=random" alt="User">
-                <div class="edit-badge"><i class="fas fa-camera"></i></div>
-            </div>
-            <div class="profile-info-main">
-                <h2>Sarvarbek Rahmonjonov</h2>
-                <p><i class="fas fa-map-marker-alt"></i> Uzbekistan, Tashkent</p>
-                <span class="user-status-tag">Premium Foydalanuvchi</span>
-            </div>
+    <div class="profile-avatar" onclick="document.getElementById('imageUpload').click()">
+        <img src="https://ui-avatars.com/api/?name=Sarvarbek&background=random" id="userAvatar" alt="User">
+        <div class="edit-badge"><i class="fas fa-camera"></i></div>
+        <input type="file" id="imageUpload" hidden accept="image/*">
+    </div>
+    <div class="profile-info-main">
+        <div class="name-container">
+            <h2 id="userNameDisplay">Sarvarbek Rahmonjonov</h2>
+            <button class="edit-btn" onclick="editProfile()"><i class="fas fa-pen"></i></button>
         </div>
+        <p class="user-id">@<span id="userHandle">sarvar_dev</span></p> <p><i class="fas fa-map-marker-alt"></i> <span id="userLocation">Uzbekistan, Tashkent</span></p>
+        <span class="user-status-tag">Premium Foydalanuvchi</span>
+    </div>
+</div>
 
-        <div class="stats-grid">
-            <div class="stat-box">
-                <span class="stat-label">Balans</span>
-                <span class="stat-value">1,250,000 UZS</span>
-                <button class="add-funds-btn"><i class="fas fa-plus"></i> To'ldirish</button>
+       <div class="stats-grid">
+    <div class="stat-box balance-card">
+        <div class="stat-icon"><i class="fas fa-wallet"></i></div>
+        <div class="stat-content">
+            <span class="stat-label">Asosiy Balans</span>
+            <div class="stat-value-container">
+                <span class="stat-value">1,250,000</span>
+                <span class="currency">UZS</span>
             </div>
-            <div class="stat-box">
-                <span class="stat-label">Buyurtmalar</span>
-                <span class="stat-value">12 ta</span>
-                <a href="#" class="stat-link">Hammasini ko'rish</a>
-            </div>
+            <button class="add-funds-btn">
+                <i class="fas fa-plus-circle"></i> To'ldirish
+            </button>
         </div>
+    </div>
+
+    <div class="stat-box orders-card">
+        <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+        <div class="stat-content">
+            <span class="stat-label">Buyurtmalar</span>
+            <div class="stat-value-container">
+                <span class="stat-value">12</span>
+                <span class="unit">ta</span>
+            </div>
+            <a href="#" class="stat-link">Tarixni ko'rish <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</div>
 
         <div class="profile-menu-list">
-            <div class="menu-item">
-                <div class="menu-icon"><i class="fas fa-shopping-bag"></i></div>
-                <div class="menu-text">Mening mahsulotlarim</div>
-                <i class="fas fa-chevron-right arrow"></i>
-            </div>
+            <a href="my-products.html" class="menu-item">
+    <div class="menu-content">
+        <div class="menu-icon"><i class="fas fa-box-open"></i></div>
+          <div class="menu-text">Mening mahsulotlarim</div>
+          </div>
+          <div class="menu-badge">5</div> <i class="fas fa-chevron-right arrow"></i>
+          </a>
             <div class="menu-item">
                 <div class="menu-icon"><i class="fas fa-heart"></i></div>
                 <div class="menu-text">Saralanganlar (Wishlist)</div>

@@ -535,3 +535,64 @@ function searchExchange(input) {
         }
     });
 }
+
+// 1. Ismni tahrirlash funksiyasi
+function editProfile() {
+    const newName = prompt("Yangi ismingizni kiriting:", document.getElementById('userNameDisplay').innerText);
+    const newUsername = prompt("Yangi ID (@username) kiriting:", document.getElementById('userHandle').innerText);
+    
+    if (newName) document.getElementById('userNameDisplay').innerText = newName;
+    if (newUsername) document.getElementById('userHandle').innerText = newUsername;
+    
+    // Bu yerda Firebase-ga saqlash kodini yozishingiz mumkin
+    console.log("Ma'lumotlar yangilandi!");
+}
+
+// 2. Rasmni real vaqtda o'zgartirish
+document.getElementById('imageUpload').addEventListener('change', function(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        document.getElementById('userAvatar').src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+});
+
+// Balansni chiroyli sanab chiqarish (Counter effect)
+function animateValue(id, start, end, duration) {
+    let obj = document.getElementById(id);
+    let range = end - start;
+    let minTimer = 50;
+    let stepTime = Math.abs(Math.floor(duration / range));
+    stepTime = Math.max(stepTime, minTimer);
+    let startTime = new Date().getTime();
+    let endTime = startTime + duration;
+    let timer;
+
+    function run() {
+        let now = new Date().getTime();
+        let remaining = Math.max((endTime - now) / duration, 0);
+        let value = Math.round(end - (remaining * range));
+        obj.innerHTML = value.toLocaleString();
+        if (value == end) {
+            clearInterval(timer);
+        }
+    }
+    timer = setInterval(run, stepTime);
+}
+
+document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+        // Sahifa almashish mantiqi
+        const pageName = this.querySelector('.menu-text').innerText;
+        console.log(pageName + " sahifasiga o'tilmoqda...");
+        
+        // Masalan, silliq o'tish effekti bilan:
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+            // Bu yerda haqiqiy sahifaga yo'naltirish
+            // window.location.href = 'my-products.html';
+        }, 300);
+    });
+});
+
+
