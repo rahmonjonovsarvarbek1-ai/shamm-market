@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shamm Market — O'zbekistondagi Zamonaviy Savdo Platformasi</title>
+<meta name="description" content="Shamm Market - kiyimlar, elektronika va kundalik mahsulotlar uchun eng qulay online bozor. Sarvarbek tomonidan yaratilgan professional platforma.">
+<meta name="keywords" content="Shamm Market, online bozor, Uzbekistan shop, savdo, e'lonlar, arzon mahsulotlar">
+<meta name="author" content="Sarvarbek Rahmonjonov">
+
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://shamm-market.vercel.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shamm-market.vercel.app/">
+<meta property="og:title" content="Shamm Market — Sifatli va Arzon Savdo">
+<meta property="og:description" content="Eng so'nggi mahsulotlar va qulay interfeys. Hozir kirib ko'ring!">
+<meta property="og:image" content="https://shamm-market.vercel.app/favicon.png">
+    <meta name="description" content="Shamm Market - O'zbekistondagi eng zamonaviy va ishonchli elektronika do'koni.">
+    <meta name="theme-color" content="#05070a">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+</head>
+<body>
+
+   <header id="navbar">
+    <div class="header-container">
+        <div class="header-left">
+            <button class="mobile-menu-btn" id="menuToggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <i class="fas fa-fire-alt"></i> 
+                <span>SHAMM</span>
+            </div>
+        </div>
+        
+        <nav class="desktop-menu">
+            <ul class="nav-links">
+    <li>
+        <a href="#home" class="nav-item active">
+            <i class="fas fa-home-alt"></i> <span>Asosiy</span>
+        </a>
+    </li>
+    <li>
+        <a href="#shop" class="nav-item">
+            <i class="fas fa-th-large"></i> <span>Katalog</span>
+        </a>
+    </li>
+    <li>
+        <a href="#offers" class="nav-item">
+            <i class="fas fa-percentage"></i> <span>Chegirmalar</span>
+        </a>
+    </li>
+    <li>
+        <a href="#exchange" class="nav-item">
+            <i class="fas fa-exchange-alt"></i> <span>Savdo</span>
+        </a>
+    </li>
+    <li>
+        <a href="#about" class="nav-item">
+            <i class="fas fa-info-circle"></i> <span>Biz haqimizda</span>
+        </a>
+    </li>
+    <li>
+        <a href="#help" class="nav-item">
+            <i class="fas fa-question-circle"></i> <span>Yordam</span>
+        </a>
+    </li>
+    <li>
+        <a href="#contact" class="nav-item">
+            <i class="fas fa-envelope"></i> <span>Aloqa</span>
+        </a>
+    </li>
+</ul>
+        </nav>
+
+        <div class="header-icons">
+            <div class="search-box">
+                <input type="text" placeholder="Qidirish...">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="mobile-sidebar" id="mobileSidebar">
+    <div class="sidebar-header">
+        <span class="sidebar-title">Menyu</span>
+        <button class="close-sidebar" id="closeMenu">&times;</button>
+    </div>
+    <ul class="sidebar-links">
+        <li><a href="#home">Asosiy</a></li>
+        <li><a href="#shop">Katalog</a></li>
+        <li><a href="#about">Biz haqimizda</a></li>
+        <li><a href="#contact">Aloqa</a></li>
+    </ul>
+</nav>
+
+<section id="home" class="main-page">
+    <div class="container">
+        <div class="search-header-box">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon-inner"></i>
+                <input type="text" id="main-search" placeholder="Mahsulot yoki rukn qidirish..." onkeyup="searchFunction()">
+                <button class="filter-settings-btn"><i class="fas fa-sliders-h"></i></button>
+            </div>
+        </div>
+
+        <div class="category-grid">
+            <div class="cat-box" onclick="filterCategory('electronics')">
+                <div class="cat-icon"><i class="fas fa-laptop"></i></div>
+                <span>Texnikalar</span>
+            </div>
+            <div class="cat-box" onclick="filterCategory('home')">
+                <div class="cat-icon"><i class="fas fa-couch"></i></div>
+                <span>Uy jihozlari</span>
+            </div>
+            <div class="cat-box" onclick="filterCategory('clothes')">
+                <div class="cat-icon"><i class="fas fa-tshirt"></i></div>
+                <span>Kiyimlar</span>
+            </div>
+            <div class="cat-box" onclick="openAddProduct()">
+                <div class="cat-icon add-icon"><i class="fas fa-plus-circle"></i></div>
+                <span>Mahsulot qo'shish</span>
+            </div>
+            <div class="cat-box" onclick="filterCategory('help')">
+                <div class="cat-icon"><i class="fas fa-headset"></i></div>
+                <span>Yordam</span>
+            </div>
+            <div class="cat-box premium" onclick="openPremium()">
+                <div class="cat-icon"><i class="fas fa-crown"></i></div>
+                <span>Premium olish</span>
+            </div>
+        </div>
+
+        <div class="content-results" id="search-results-area">
+            <h3 class="section-title">Tavsiya etilganlar</h3>
+            <div class="product-list-mini" id="home-products">
+                <div class="item-card" data-title="iPhone 15 Pro" data-cat="electronics">
+                    <img src="https://via.placeholder.com/100" alt="tech">
+                    <div class="item-info">
+                        <h4>iPhone 15 Pro</h4>
+                        <p>12,000,000 so'm</p>
+                    </div>
+                </div>
+                <div class="item-card" data-title="Yumshoq kreslo" data-cat="home">
+                    <img src="https://via.placeholder.com/100" alt="home">
+                    <div class="item-info">
+                        <h4>Yumshoq kreslo</h4>
+                        <p>2,500,000 so'm</p>
+                    </div>
+                </div>
+                <div class="item-card" data-title="Qora Hoodie" data-cat="clothes">
+                    <img src="https://via.placeholder.com/100" alt="clothes">
+                    <div class="item-info">
+                        <h4>Qora Hoodie</h4>
+                        <p>350,000 so'm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo"><i class="fas fa-fire-alt"></i> SHAMM MARKET</div>
+                <p>Bizning maqsadimiz — mijozlarimizga eng so'nggi texnologiyalarni eng qulay sharoitlarda yetkazib berish.</p>
+            </div>
+            <div class="footer-group">
+                <h4>Kompaniya</h4>
+                <ul>
+                    <li><a href="#">Biz haqimizda</a></li>
+                    <li><a href="#">Xizmatlar</a></li>
+                    <li><a href="#">Maxfiylik siyosati</a></li>
+                </ul>
+            </div>
+            <div class="footer-group">
+                <h4>Yordam</h4>
+                <ul>
+                    <li><a href="#">Yetkazib berish</a></li>
+                    <li><a href="#">To'lov usullari</a></li>
+                    <li><a href="#">Savol-javob (FAQ)</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Bog'lanish</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <p class="contact-info">support@shamm.uz</p>
+                <p class="contact-info">+998 90 123 45 67</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Shamm Market. Created by <strong>Sarvarbek</strong></p>
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fas fa-wallet"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="shop" class="main-page" style="display: none;">
+    <div class="container">
+        <div class="shop-header-sticky">
+            <div class="title-area">
+                <span class="sub-title">Premium sifat</span>
+                <h2>Katalog</h2>
+            </div>
+            <div class="main-search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="shop-search-input" placeholder="Mahsulot nomini yozing..." onkeyup="filterProducts()">
+                <div class="cart-trigger" onclick="location.href='#profile'">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span id="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-scroll">
+            <button class="filter-chip active" onclick="filterCat('all', this)">Hammasi</button>
+            <button class="filter-chip" onclick="filterCat('electronics', this)">Texnika</button>
+            <button class="filter-chip" onclick="filterCat('accessories', this)">Aksessuarlar</button>
+            <button class="filter-chip" onclick="filterCat('clothes', this)">Kiyimlar</button>
+        </div>
+
+        <div class="product-grid" id="product-list">
+            <div class="product-card" data-category="electronics" data-name="iPhone 15 Pro">
+                <div class="card-top">
+                    <span class="badge-new">Yangi</span>
+                    <button class="wishlist-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                    <img src="https://via.placeholder.com/200" alt="Product">
+                </div>
+                <div class="card-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.9 <span>(24 izoh)</span></div>
+                    <h4>iPhone 15 Pro</h4>
+                    <p class="price">14,200,000 UZS</p>
+                    <div class="card-actions">
+                        <button class="add-to-cart" onclick="addToCart('iPhone 15 Pro')">
+                            <i class="fas fa-cart-plus"></i> Savatga
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="accessories" data-name="AirPods Max">
+                <div class="card-top">
+                    <button class="wishlist-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                    <img src="https://via.placeholder.com/200" alt="Product">
+                </div>
+                <div class="card-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.7 <span>(12 izoh)</span></div>
+                    <h4>AirPods Max</h4>
+                    <p class="price">6,500,000 UZS</p>
+                    <div class="card-actions">
+                        <button class="add-to-cart" onclick="addToCart('AirPods Max')">
+                            <i class="fas fa-cart-plus"></i> Savatga
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="exchange" class="main-page" style="display: none;">
+    <div class="container exchange-container">
+        <div class="exchange-header">
+            <div class="balance-card-glass">
+                <div class="balance-info">
+                    <span>Asosiy balans</span>
+                    <h3>2,450,000 UZS</h3>
+                </div>
+                <button class="top-up-btn" title="To'ldirish"><i class="fas fa-wallet"></i></button>
+            </div>
+            <button class="add-listing-btn-premium" onclick="openAddProduct()">
+                <i class="fas fa-plus-circle"></i> E'lon berish
+            </button>
+        </div>
+
+        <div class="market-status-bar">
+            <div class="market-chip"><i class="fas fa-chart-line"></i> IELTS Kurslari <span class="up">↑15%</span></div>
+            <div class="market-chip"><i class="fas fa-laptop"></i> MacBook M3 <span class="down">↓5%</span></div>
+            <div class="market-chip"><i class="fas fa-code"></i> Python <span class="up">↑22%</span></div>
+        </div>
+
+        <div class="exchange-controls">
+            <div class="ex-search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" placeholder="E'lonlarni qidirish..." onkeyup="searchExchange(this)">
+             </div>
+            <div class="ex-filter-select">
+                <select id="sort-price" onchange="sortItems(this.value)">
+                    <option value="new">Eng yangi</option>
+                    <option value="cheap">Arzonroq</option>
+                    <option value="expensive">Qimmatroq</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="exchange-grid" id="exchange-items">
+            <div class="ex-card-premium" data-price="8500000" data-title="iPhone 13 Pro Max">
+                <div class="ex-img-container">
+                    <img src="https://via.placeholder.com/300" alt="product">
+                    <span class="ex-status-tag">Yangi</span>
+                    <button class="fav-btn"><i class="far fa-heart"></i></button>
+                </div>
+                <div class="ex-body">
+                    <div class="ex-meta">
+                        <span class="ex-cat">Elektronika</span>
+                        <span class="ex-time">2 soat oldin</span>
+                    </div>
+                    <h5>iPhone 13 Pro Max</h5>
+                    <div class="ex-loc"><i class="fas fa-map-marker-alt"></i> Toshkent, Chilonzor</div>
+                    <div class="ex-footer-row">
+                        <div class="ex-price-tag">8,500,000 <span>UZS</span></div>
+                        <button class="ex-action-btn" onclick="openConversation('Sotuvchi', 'online')">
+                            <i class="fas fa-comments"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ex-card-premium" data-price="1200000" data-title="Python Backend">
+                <div class="ex-img-container">
+                    <img src="https://via.placeholder.com/300" alt="course">
+                    <span class="ex-status-tag services">Xizmat</span>
+                </div>
+                <div class="ex-body">
+                    <div class="ex-meta">
+                        <span class="ex-cat">Ta'lim</span>
+                        <span class="ex-time">Bugun</span>
+                    </div>
+                    <h5>Python Backend (FastAPI) Kurs</h5>
+                    <div class="ex-loc"><i class="fas fa-globe"></i> Onlayn / Masofaviy</div>
+                    <div class="ex-footer-row">
+                        <div class="ex-price-tag">1,200,000 <span>UZS</span></div>
+                        <button class="ex-action-btn" onclick="alert('Bog\'lanish tizimi...')">
+                            <i class="fas fa-phone-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="chat" class="main-page" style="display: none;">
+    <div class="chat-wrapper">
+        <div class="chat-header">
+            <h3>Xabarlar</h3>
+            <div class="header-actions">
+                <i class="fas fa-edit"></i>
+            </div>
+        </div>
+
+        <div class="chat-search">
+            <input type="text" placeholder="Kontaktlarni qidirish..." id="chat-user-search">
+        </div>
+
+        <div class="conversations-list" id="contacts-list">
+            <div class="conv-item active" onclick="openConversation('Admin', 'Online')">
+                <div class="conv-avatar">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=007bff&color=fff" alt="A">
+                    <span class="online-dot"></span>
+                </div>
+                <div class="conv-details">
+                    <div class="conv-user"><h4>Qo'llab-quvvatlash (Admin)</h4> <span>12:45</span></div>
+                    <p>Sizning buyurtmangiz yo'lga chiqdi!</p>
+                </div>
+            </div>
+
+            <div class="conv-item" onclick="openConversation('Dostonbek', 'Offline')">
+                <div class="conv-avatar">
+                    <img src="https://ui-avatars.com/api/?name=Doston&background=random" alt="D">
+                </div>
+                <div class="conv-details">
+                    <div class="conv-user"><h4>Dostonbek</h4> <span>Kecha</span></div>
+                    <p>Akaxon, yangi kiyimlar keldimi?</p>
+                </div>
+                <div class="unread-badge">2</div>
+            </div>
+        </div>
+
+        <div class="chat-window" id="active-chat-window" style="display: none;">
+            <div class="chat-window-header">
+                <button class="back-btn" onclick="closeConversation()"><i class="fas fa-arrow-left"></i></button>
+                <div class="active-user-info">
+                    <strong id="chat-with-name">Admin</strong>
+                    <span id="chat-with-status">Online</span>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="messages-container">
+                <div class="msg incoming">Salom! Sizga qanday yordam bera olaman?</div>
+                <div class="msg outgoing">Yangi kelgan noutbuklar haqida ma'lumot bera olasizmi?</div>
+            </div>
+
+            <div class="chat-input-area">
+                <button class="attach-btn"><i class="fas fa-plus"></i></button>
+                <input type="text" id="msg-input" placeholder="Xabar yozing...">
+                <button class="send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="profile" class="main-page" style="display: none;">
+    <div class="container profile-container">
+        <div class="profile-header-card">
+            <div class="profile-avatar">
+                <img src="https://ui-avatars.com/api/?name=Sarvarbek&background=random" alt="User">
+                <div class="edit-badge"><i class="fas fa-camera"></i></div>
+            </div>
+            <div class="profile-info-main">
+                <h2>Sarvarbek Rahmonjonov</h2>
+                <p><i class="fas fa-map-marker-alt"></i> Uzbekistan, Tashkent</p>
+                <span class="user-status-tag">Premium Foydalanuvchi</span>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span class="stat-label">Balans</span>
+                <span class="stat-value">1,250,000 UZS</span>
+                <button class="add-funds-btn"><i class="fas fa-plus"></i> To'ldirish</button>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Buyurtmalar</span>
+                <span class="stat-value">12 ta</span>
+                <a href="#" class="stat-link">Hammasini ko'rish</a>
+            </div>
+        </div>
+
+        <div class="profile-menu-list">
+            <div class="menu-item">
+                <div class="menu-icon"><i class="fas fa-shopping-bag"></i></div>
+                <div class="menu-text">Mening mahsulotlarim</div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+            <div class="menu-item">
+                <div class="menu-icon"><i class="fas fa-heart"></i></div>
+                <div class="menu-text">Saralanganlar (Wishlist)</div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+            <div class="menu-item">
+                <div class="menu-icon"><i class="fas fa-wallet"></i></div>
+                <div class="menu-text">To'lov usullari</div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+            <div class="menu-item">
+                <div class="menu-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="menu-text">Xavfsizlik</div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+            <div class="menu-item">
+                <div class="menu-icon"><i class="fas fa-language"></i></div>
+                <div class="menu-text">Tilni o'zgartirish (UZ)</div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+            <hr class="menu-divider">
+            <div class="menu-item logout-btn" onclick="logoutApp()">
+                <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
+                <div class="menu-text">Chiqish</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<nav class="mobile-nav">
+    <a href="#home" class="mobile-nav-item active">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
+    <a href="#shop" class="mobile-nav-item">
+        <i class="fas fa-th-large"></i>
+        <span>Shop</span>
+    </a>
+    <div class="mobile-nav-item exchange-main">
+        <div class="center-btn"><i class="fas fa-exchange-alt"></i></div>
+        <span>Savdo</span>
+    </div>
+    <a href="#chat" class="mobile-nav-item">
+        <div class="icon-badge-wrapper">
+            <i class="fas fa-comment-dots"></i>
+            <span class="dot"></span>
+        </div>
+        <span>Chat</span>
+    </a>
+    <a href="#profile" class="mobile-nav-item">
+        <i class="fas fa-user-circle"></i>
+        <span>Profil</span>
+    </a>
+</nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
