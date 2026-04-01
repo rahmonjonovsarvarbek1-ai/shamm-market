@@ -148,10 +148,7 @@ const ShammMarket = {
 // Saytni ishga tushirish
 document.addEventListener('DOMContentLoaded', () => ShammMarket.init());
 
-// Global funksiya (HTML dagi onclick uchun)
-function toggleCart() {
-    alert(`Savatchada ${cart.length} ta mahsulot bor. Buyurtma qilish tizimi tez kunda!`);
-}
+
 
 const menuToggle = document.getElementById('menuToggle');
 const closeMenu = document.getElementById('closeMenu');
@@ -261,13 +258,7 @@ function filterCategory(cat) {
     if(cat === 'help') alert("Yordam markaziga xush kelibsiz!");
 }
 
-// 3. Mahsulot qo'shish (Modal yoki yangi oyna)
-function openAddProduct() {
-    let name = prompt("Mahsulot nomini kiriting:");
-    if(name) {
-        alert(name + " muvaffaqiyatli tekshiruvga yuborildi!");
-    }
-}
+
 
 // 4. Premium funksiyasi
 function openPremium() {
@@ -444,41 +435,6 @@ function searchProducts() {
 // Inputga "keyup" hodisasini ulash
 document.getElementById('shop-search-input').addEventListener('keyup', searchProducts);
 
-
-/**
- * SHAMM MARKET - Exchange Engine
- */
-
-/**
- * SHAMM MARKET - Xatosiz Qidiruv Tizimi
- */
-function searchExchange(input) {
-    // 1. Inputni tekshirish
-    if (!input || typeof input.value === 'undefined') return;
-
-    const searchTerm = input.value.toLowerCase().trim();
-    // 2. Savdo bo'limidagi kartochkalarni tanlash
-    const cards = document.querySelectorAll('.ex-card-premium');
-
-    cards.forEach(card => {
-        // 3. Xavfsiz qidirish (Null check)
-        const h5 = card.querySelector('h5');
-        const dataTitle = card.getAttribute('data-title');
-        
-        // Element bor bo'lsa matnini oladi, yo'q bo'lsa bo'sh joy
-        const titleText = h5 ? h5.innerText.toLowerCase() : "";
-        const attrText = dataTitle ? dataTitle.toLowerCase() : "";
-
-        // 4. Qidiruv mantiqi
-        if (titleText.includes(searchTerm) || attrText.includes(searchTerm)) {
-            card.style.display = "block";
-            // Kichik animatsiya effekti
-            if (searchTerm !== "") card.style.animation = "fadeIn 0.3s ease";
-        } else {
-            card.style.display = "none";
-        }
-    });
-}
 // 2. Saralash funksiyasi (Sort)
 function sortItems(criteria) {
     const container = document.getElementById('exchange-items');
@@ -548,14 +504,7 @@ function editProfile() {
     console.log("Ma'lumotlar yangilandi!");
 }
 
-// 2. Rasmni real vaqtda o'zgartirish
-document.getElementById('imageUpload').addEventListener('change', function(event) {
-    const reader = new FileReader();
-    reader.onload = function() {
-        document.getElementById('userAvatar').src = reader.result;
-    }
-    reader.readAsDataURL(event.target.files[0]);
-});
+
 
 // Balansni chiroyli sanab chiqarish (Counter effect)
 function animateValue(id, start, end, duration) {
@@ -596,3 +545,99 @@ document.querySelectorAll('.menu-item').forEach(item => {
 });
 
 
+
+
+async function addProductToBackend(name, price, description, file) {
+    try {
+        // 1. Rasmni yuklash
+        const storageRef = ref(storage, `products/${Date.now()}_${file.name}`);
+        const snapshot = await uploadBytes(storageRef, file);
+        const imageUrl = await getDownloadURL(snapshot.ref);
+
+        // 2. Ma'lumotlarni Firestore-ga yozish
+        const docRef = await addDoc(collection(db, "products"), {
+            name: name,
+            price: Number(price),
+            description: description,
+            image: imageUrl,
+            createdAt: serverTimestamp()
+        });
+
+        console.log("Mahsulot ID bilan saqlandi: ", docRef.id);
+        return true;
+    } catch (error) {
+        console.error("Xato: ", error);
+        return false;
+    }
+}
+
+
+async function loadProducts() {
+    const shopGrid = document.getElementById('shopGrid'); // Mahsulotlar chiqadigan joy
+    shopGrid.innerHTML = ''; // Tozalash
+
+    const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+        const product = doc.data();
+        const cardHTML = `
+            <div class="product-card">
+                <img src="${product.image}" alt="${product.name}">
+                <h4>${product.name}</h4>
+                <p>${product.price.toLocaleString()} UZS</p>
+                <button onclick="orderProduct('${doc.id}')">Sotib olish</button>
+            </div>
+        `;
+        shopGrid.insertAdjacentHTML('beforeend', cardHTML);
+    });
+}
+
+
+// script.js faylining oxiriga qo'shing
+window.toggleCart = function() {
+    const cart = document.getElementById('cartDrawer'); // Savatcha ID-si
+    cart.classList.toggle('active');
+};
+
+window.openPremium = function() {
+    alert("Premium xususiyatlar tez kunda!");
+    // Bu yerda premium modalini ochish mantiqi bo'ladi
+};
+
+import { db } from './firebase-config.js';
+import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// Xabar yuborish
+window.sendMessage = async function() {
+    const msgInput = document.getElementById('chatInput');
+    const message = msgInput.value;
+
+    if (message.trim() !== "") {
+        await addDoc(collection(db, "chats"), {
+            text: message,
+            sender: "Sarvar", // Kelajakda Auth-dan olinadi
+            createdAt: serverTimestamp()
+        });
+        msgInput.value = ""; // Inputni tozalash
+    }
+};
+
+// Xabarlarni real-time eshitish
+const q = query(collection(db, "chats"), orderBy("createdAt", "asc"));
+
+onSnapshot(q, (snapshot) => {
+    const chatBox = document.getElementById('chatMessages');
+    chatBox.innerHTML = ""; // Oldingi xabarlarni tozalab qayta chizamiz
+
+    snapshot.forEach((doc) => {
+        const data = doc.data();
+        const msgDiv = document.createElement('div');
+        msgDiv.className = data.sender === "Sarvar" ? "my-msg" : "other-msg";
+        msgDiv.innerHTML = `<b>${data.sender}:</b> ${data.text}`;
+        chatBox.appendChild(msgDiv);
+    });
+    
+    // Pastga avtomatik tushirish (scroll)
+    chatBox.scrollTop = chatBox.scrollHeight;
+});
