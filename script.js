@@ -1,3 +1,110 @@
+// 1. Firebase Config faylingizdan 'auth' va 'db' ni BIR MARTA chaqiramiz
+import { auth, db } from './firebase-config.js'; 
+
+// 2. Auth funksiyalari
+import { 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+// 3. Firestore funksiyalari
+import { 
+    doc, 
+    getDoc,
+    onSnapshot // Agar chat ishlatsangiz buni ham qo'shing
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const provider = new GoogleAuthProvider();
+
+// Qolgan kodingiz (onAuthStateChanged...) shu yerdan davom etadi
+// 2. Foydalanuvchi holatini kuzatish (Listener)
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        // UI elementlarini topamiz
+        const userNameDisplay = document.querySelector('.profile-card h2') || document.getElementById('userNameDisplay');
+        const userHandle = document.querySelector('.profile-card .handle') || document.getElementById('userHandle');
+        const profileImg = document.querySelector('.profile-img img') || document.getElementById('userAvatar');
+        const balanceDisplay = document.querySelector('.balance-amount') || document.getElementById('userBalance');
+
+        // Ma'lumotlarni joylashtiramiz
+        if (userNameDisplay) userNameDisplay.innerText = user.displayName;
+        if (userHandle) userHandle.innerText = "@" + (user.email.split('@')[0]);
+        if (profileImg) profileImg.src = user.photoURL || 'default-avatar.png';
+
+        // Firestore-dan balansni olish
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+        
+        if (userSnap.exists() && balanceDisplay) {
+            const userData = userSnap.data();
+            balanceDisplay.innerText = userData.balance.toLocaleString() + " UZS";
+        }
+    }
+});
+
+// 3. Modalni boshqarish (Window obyektiga biriktiramiz)
+window.openAuthModal = () => {
+    const modal = document.getElementById('authModal');
+    if (modal) modal.style.display = 'flex';
+};
+
+window.closeAuthModal = () => {
+    const modal = document.getElementById('authModal');
+    if (modal) modal.style.display = 'none';
+};
+
+// Google orqali kirish
+window.loginWithGoogle = async () => {
+    try {
+        await signInWithPopup(auth, provider);
+        if (window.closeAuthModal) window.closeAuthModal();
+        console.log("Kirish muvaffaqiyatli!");
+    } catch (error) {
+        console.error("Xatolik:", error.message);
+        alert("Kirishda xatolik yuz berdi");
+    }
+};
+
+// Modalni ochish va yopishni ham global qilamiz
+window.openAuthModal = () => {
+    const modal = document.getElementById('authModal');
+    if (modal) modal.style.display = 'flex';
+};
+
+window.closeAuthModal = () => {
+    const modal = document.getElementById('authModal');
+    if (modal) modal.style.display = 'none';
+};
+
+window.loginWithEmail = async () => {
+    const email = document.getElementById('authEmail')?.value;
+    const pass = document.getElementById('authPassword')?.value;
+    
+    if (!email || !pass) return alert("Email va parolni kiriting");
+
+    try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        window.closeAuthModal();
+    } catch (error) {
+        alert("Xatolik: Email yoki parol noto'g'ri");
+    }
+};
+
+window.registerWithEmail = async () => {
+    const email = document.getElementById('authEmail')?.value;
+    const pass = document.getElementById('authPassword')?.value;
+
+    try {
+        await createUserWithEmailAndPassword(auth, email, pass);
+        alert("Hisob yaratildi!");
+        window.closeAuthModal();
+    } catch (error) {
+        alert("Xatolik: " + error.message);
+    }
+};
+
+
 /**
  * SHAMM MARKET - Core Engine 2026
  * Developed by: Sarvarbek
@@ -605,8 +712,7 @@ window.openPremium = function() {
     // Bu yerda premium modalini ochish mantiqi bo'ladi
 };
 
-import { db } from './firebase-config.js';
-import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 
 // Xabar yuborish
 window.sendMessage = async function() {
@@ -627,17 +733,44 @@ window.sendMessage = async function() {
 const q = query(collection(db, "chats"), orderBy("createdAt", "asc"));
 
 onSnapshot(q, (snapshot) => {
-    const chatBox = document.getElementById('chatMessages');
-    chatBox.innerHTML = ""; // Oldingi xabarlarni tozalab qayta chizamiz
+    const chatBox = document.getElementById('chatMessages'); // ID to'g'riligini tekshiring
+    
+    // 1. Element borligini tekshirish (Xatolikni oldini oladi)
+    if (!chatBox) {
+        console.warn("Chat oynasi (chatMessages) topilmadi!");
+        return;
+    }
+
+    chatBox.innerHTML = ""; 
 
     snapshot.forEach((doc) => {
         const data = doc.data();
         const msgDiv = document.createElement('div');
-        msgDiv.className = data.sender === "Sarvar" ? "my-msg" : "other-msg";
+        
+        // 2. "Sarvar" o'rniga dinamik ravishda joriy foydalanuvchi ID sini ishlating
+        // auth.currentUser.displayName bilan solishtirish aniqroq bo'ladi
+        msgDiv.className = data.senderId === auth.currentUser?.uid ? "my-msg" : "other-msg";
+        
         msgDiv.innerHTML = `<b>${data.sender}:</b> ${data.text}`;
         chatBox.appendChild(msgDiv);
     });
     
-    // Pastga avtomatik tushirish (scroll)
     chatBox.scrollTop = chatBox.scrollHeight;
 });
+
+// Chat xabarlarini kuzatish (faqat chat sahifasida bo'lsa)
+const chatMessagesContainer = document.getElementById('chatMessages');
+
+if (chatMessagesContainer) {
+    onSnapshot(q, (snapshot) => {
+        chatMessagesContainer.innerHTML = ""; 
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            const msgDiv = document.createElement('div');
+            msgDiv.className = data.senderId === auth.currentUser?.uid ? "my-msg" : "other-msg";
+            msgDiv.innerHTML = `<b>${data.sender}:</b> ${data.text}`;
+            chatMessagesContainer.appendChild(msgDiv);
+        });
+        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+    });
+}

@@ -86,16 +86,28 @@
 </ul>
         </nav>
 
-        <div class="header-icons">
-            <div class="search-box">
-                <input type="text" placeholder="Qidirish...">
-                <button class="search-btn"><i class="fas fa-search"></i></button>
-            </div>
-            <div class="cart-icon" onclick="toggleCart()">
-                <i class="fas fa-shopping-bag"></i>
-                <span id="cart-count">0</span>
-            </div>
+     <div class="header-icons">
+        <div class="search-box">
+        <input type="text" placeholder="Qidirish...">
+        <button class="search-btn"><i class="fas fa-search"></i></button>
         </div>
+
+        <div id="userAuthSection" class="user-auth-wrapper">
+        <button id="headerLoginBtn" class="header-login-btn" onclick="loginWithGoogle()">
+            <i class="fas fa-user-circle"></i>
+            <span>Kirish</span>
+        </button>
+        
+        <div id="headerUserIcon" class="header-user-profile hidden" onclick="toggleUserMenu()">
+            <img id="userAvatar" src="" alt="User" class="avatar-img">
+        </div>
+     </div>
+
+    <div class="cart-icon" onclick="toggleCart()">
+        <i class="fas fa-shopping-bag"></i>
+        <span id="cart-count">0</span>
+    </div>
+</div>
     </div>
 </header>
 
@@ -436,10 +448,10 @@
     </div>
     <div class="profile-info-main">
         <div class="name-container">
-            <h2 id="userNameDisplay">Sarvarbek Rahmonjonov</h2>
+            <h2 id="userNameDisplay">Foydalanuvchi nomi</h2>
             <button class="edit-btn" onclick="editProfile()"><i class="fas fa-pen"></i></button>
         </div>
-        <p class="user-id">@<span id="userHandle">sarvar_dev</span></p> <p><i class="fas fa-map-marker-alt"></i> <span id="userLocation">Uzbekistan, Tashkent</span></p>
+        <p class="user-id"><span id="userHandle">username</span></p> <p><i class="fas fa-map-marker-alt"></i> <span id="userLocation">Uzbekistan, Tashkent</span></p>
         <span class="user-status-tag">Premium Foydalanuvchi</span>
     </div>
 </div>
@@ -536,6 +548,34 @@
     </a>
 </nav>
 
+<div id="authModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeAuthModal()">&times;</button>
+        <div class="modal-header">
+            <i class="fas fa-fire-alt logo-icon"></i>
+            <h2>Shamm Marketga xush kelibsiz</h2>
+            <p>Davom etish uchun tizimga kiring</p>
+        </div>
+        
+        <div class="auth-options">
+            <button class="auth-btn google-btn" onclick="loginWithGoogle()">
+            <i class="fab fa-google" style="color: #4285F4; font-size: 20px;"></i>
+            <span>Google orqali kirish</span>
+            </button>
+
+            <div class="divider"><span>yoki</span></div>
+
+            <div class="email-auth-form">
+                <input type="email" id="authEmail" placeholder="Email manzilingiz">
+                <input type="password" id="authPassword" placeholder="Parolingiz">
+                <button class="auth-btn email-btn" onclick="loginWithEmail()">Kirish</button>
+                <p class="auth-footer">Hisobingiz yo'qmi? <a href="#" onclick="registerWithEmail()">Ro'yxatdan o'tish</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+   <script type="module" src="firebase-config.js"></script>
    <script type="module" src="script.js"></script>
 </body>
 </html>

@@ -2372,3 +2372,148 @@ body { font-family: 'Inter', sans-serif; background-color: #fff; color: #1d1d1f;
     font-size: 0.9rem;
 }
 
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Kirish tugmasi stili */
+.header-login-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #0141f3; /* Shamm logosi rangiga mos */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(255, 87, 34, 0.2);
+}
+
+.header-login-btn:hover {
+    background: #5a19e6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 87, 34, 0.3);
+}
+
+.header-login-btn i {
+    font-size: 18px;
+}
+
+/* Tizimga kirgandagi profil rasm stili */
+.header-user-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #6822ff;
+    transition: transform 0.2s;
+}
+
+.header-user-profile:hover {
+    transform: scale(1.1);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Elementlarni yashirish uchun */
+.hidden {
+    display: none !important;
+}
+
+/* Mobil moslashuvchanlik */
+@media (max-width: 600px) {
+    .header-login-btn span {
+        display: none; /* Mobilda faqat ikonka qoladi */
+    }
+    .header-login-btn {
+        padding: 8px;
+    }
+}
+
+/* Modal foni */
+.modal-overlay {
+    display: none; /* Dastlab yashirin */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal oynasi */
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #888;
+}
+
+.logo-icon { font-size: 40px; color: #ff5722; margin-bottom: 10px; }
+
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.google-btn { background: white; color: #555; }
+.google-btn:hover { background: #f9f9f9; border-color: #bbb; }
+
+.email-btn { background: #ff5722; color: white; border: none; }
+.email-btn:hover { background: #e64a19; }
+
+.divider { margin: 20px 0; border-bottom: 1px solid #eee; position: relative; }
+.divider span { background: white; padding: 0 10px; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); color: #999; font-size: 14px; }
+
+.email-auth-form input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}

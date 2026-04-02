@@ -1,6 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+// 1. Auth modulini ham qo'shamiz
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAw6VzNHRNqoOTf-ownAk9SNFwdJjdWsuY",
@@ -15,6 +17,7 @@ const firebaseConfig = {
 // Firebase-ni ishga tushiramiz
 const app = initializeApp(firebaseConfig);
 
-// BU QISMI JUDA MUHIM: 'export' so'zlari turishi shart!
+// 2. Eksport qilinadigan qismlar
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+export const auth = getAuth(app); // Auth-ni eksport qilish shart!
