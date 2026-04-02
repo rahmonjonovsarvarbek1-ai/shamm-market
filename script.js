@@ -57,12 +57,12 @@ window.closeAuthModal = () => {
 // Google orqali kirish
 window.loginWithGoogle = async () => {
     try {
-        await signInWithPopup(auth, provider);
-        if (window.closeAuthModal) window.closeAuthModal();
+        const result = await signInWithPopup(auth, provider);
         console.log("Kirish muvaffaqiyatli!");
+        // Oyna ochilishi uchun popup bloklanmaganini tekshiring
     } catch (error) {
-        console.error("Xatolik:", error.message);
-        alert("Kirishda xatolik yuz berdi");
+        console.error("Xatolik:", error.code);
+        alert("Xatolik: " + error.message);
     }
 };
 
@@ -712,7 +712,16 @@ window.openPremium = function() {
     // Bu yerda premium modalini ochish mantiqi bo'ladi
 };
 
+// 724-qator atrofini shunday o'zgartiring
+const chatBox = document.getElementById('chatMessages'); // ID'ni tekshiring
 
+if (chatBox) {
+    // Faqat element mavjud bo'lsa xabar qo'shiladi
+    chatBox.innerHTML += `<div>Xabar...</div>`;
+} else {
+    // Agar element bo'lmasa, xato bermasligi uchun shunchaki o'tkazib yuboradi
+    console.warn("Chat oynasi hozircha mavjud emas.");
+}
 
 // Xabar yuborish
 window.sendMessage = async function() {
@@ -729,34 +738,9 @@ window.sendMessage = async function() {
     }
 };
 
-// Xabarlarni real-time eshitish
-const q = query(collection(db, "chats"), orderBy("createdAt", "asc"));
 
-onSnapshot(q, (snapshot) => {
-    const chatBox = document.getElementById('chatMessages'); // ID to'g'riligini tekshiring
-    
-    // 1. Element borligini tekshirish (Xatolikni oldini oladi)
-    if (!chatBox) {
-        console.warn("Chat oynasi (chatMessages) topilmadi!");
-        return;
-    }
 
-    chatBox.innerHTML = ""; 
 
-    snapshot.forEach((doc) => {
-        const data = doc.data();
-        const msgDiv = document.createElement('div');
-        
-        // 2. "Sarvar" o'rniga dinamik ravishda joriy foydalanuvchi ID sini ishlating
-        // auth.currentUser.displayName bilan solishtirish aniqroq bo'ladi
-        msgDiv.className = data.senderId === auth.currentUser?.uid ? "my-msg" : "other-msg";
-        
-        msgDiv.innerHTML = `<b>${data.sender}:</b> ${data.text}`;
-        chatBox.appendChild(msgDiv);
-    });
-    
-    chatBox.scrollTop = chatBox.scrollHeight;
-});
 
 // Chat xabarlarini kuzatish (faqat chat sahifasida bo'lsa)
 const chatMessagesContainer = document.getElementById('chatMessages');
@@ -774,3 +758,15 @@ if (chatMessagesContainer) {
         chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
     });
 }
+
+// Tizimdan chiqish funksiyasi
+window.logoutApp = async () => {
+    try {
+        await auth.signOut();
+        console.log("Tizimdan chiqildi...");
+        alert("Siz tizimdan chiqdingiz");
+        location.reload(); // Sahifani yangilash
+    } catch (error) {
+        console.error("Chiqishda xatolik:", error.message);
+    }
+};
