@@ -55,14 +55,14 @@ window.closeAuthModal = () => {
 };
 
 // Google orqali kirish
+// script.js ichida
 window.loginWithGoogle = async () => {
     try {
-        const result = await signInWithPopup(auth, provider);
-        console.log("Kirish muvaffaqiyatli!");
-        // Oyna ochilishi uchun popup bloklanmaganini tekshiring
+        // Redirect o'rniga Popup ishlating
+        await signInWithPopup(auth, provider);
+        console.log("Muvaffaqiyatli kirdi!");
     } catch (error) {
         console.error("Xatolik:", error.code);
-        alert("Xatolik: " + error.message);
     }
 };
 
