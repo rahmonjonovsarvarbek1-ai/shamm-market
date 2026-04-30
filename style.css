@@ -2053,3 +2053,164 @@ main#app { margin-top: var(--nav-h); }
   #toastContainer { left: 10px; right: 10px; }
   .toast { min-width: unset; width: 100%; }
 }
+
+
+/* ======================== RESPONSIVE NAVBAR (MOBILE) ======================== */
+
+/* Faqat 768px dan kichik ekranlar uchun (Smartfonlar) */
+@media (max-width: 768px) {
+    .navbar {
+        height: 65px;
+        padding: 0 15px;
+    }
+
+    /* Desktop menyuni yashiramiz */
+    .desktop-nav {
+        display: none;
+    }
+
+    /* Gamburger tugmasini ko'rsatamiz */
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 24px;
+        height: 18px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 10;
+    }
+
+    .hamburger span {
+        width: 100%;
+        height: 2px;
+        background-color: var(--text-color, #333);
+        border-radius: 10px;
+        transition: all 0.3s linear;
+    }
+
+    /* Logotipni moslashtirish */
+    .logo-text {
+        font-size: 1.1rem;
+    }
+
+    .logo-badge {
+        display: none; /* Mobilda joy tejash uchun */
+    }
+
+    /* Qidiruv qismini mobilda ixchamlashtirish */
+    .nav-search-wrap {
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        padding: 10px 15px;
+        display: none; /* Faqat qidiruv bosilganda chiqishi uchun */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* O'ng tarafdagi tugmalar */
+    .nav-right {
+        gap: 8px;
+    }
+
+    .icon-btn {
+        font-size: 1.2rem;
+        padding: 5px;
+    }
+
+    #loginBtn span {
+        display: none; /* "Kirish" so'zini yashirib faqat ikonkani qoldirish */
+    }
+
+    /* --- MOBILE MENU (Gamburger bosilganda ochiladigan qism) --- */
+    .desktop-nav.active {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%; /* Ekranning 80% qismini egallaydi */
+        height: 100vh;
+        background: #fff;
+        z-index: 999;
+        padding: 80px 20px;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+        gap: 20px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .nav-link {
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+}
+
+/* Juda kichik ekranlar uchun (iPhone SE va h.k.) */
+@media (max-width: 400px) {
+    .nav-right {
+        gap: 5px;
+    }
+    
+    .logo-flame {
+        font-size: 1.2rem;
+    }
+
+    .logo-text {
+        display: none; /* Faqat logo qoladi */
+    }
+}
+
+/* ======================== PROFILE HEADER MOBILE ======================== */
+
+@media (max-width: 768px) {
+    /* Asosiy qatorni vertikal ustun ko'rinishiga o'tkazamiz */
+    .profile-info-row {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center;
+        padding: 40px 15px 20px 15px !important;
+        position: relative;
+    }
+
+    /* Avatar qismini cover ustiga biroz chiqaramiz */
+    .profile-avatar-wrap {
+        margin-top: -60px; /* Rasmga qarab moslashtirdik */
+        margin-bottom: 15px;
+        margin-right: 0 !important; /* Desktopdagi chetlanishni bekor qilamiz */
+    }
+
+    /* Ism va handle (username) joylashuvi */
+    .profile-text {
+        margin: 0 0 15px 0 !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #profileName {
+        font-size: 1.3rem;
+        margin-bottom: 4px;
+        word-break: break-word;
+    }
+
+    /* Tahrirlash tugmasini markazga tushirish */
+    .profile-info-row .btn-ghost.sm {
+        width: auto;
+        min-width: 140px; /* Bosishga qulay o'lcham */
+        justify-content: center;
+        margin-left: 0 !important;
+    }
+
+    /* Premium badge */
+    .profile-badge {
+        margin-top: 8px;
+        display: inline-flex;
+    }
+}
+
